@@ -46,6 +46,7 @@ public class FtcOpModeRegister implements OpModeRegister {
    * @param manager op mode manager
    */
   public void register(OpModeManager manager) {
+    manager.register("TeleopV1", MainTeleopV1.class);
 
     /*
      * register your op modes here.
@@ -53,13 +54,12 @@ public class FtcOpModeRegister implements OpModeRegister {
      * The second parameter is the op mode class property
      *
      * If two or more op modes are registered with the same name, the app will display an error.
-     */
 
-    manager.register("NullOp", NullOp.class);
-
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
+//    manager.register("NullOp", NullOp.class);
+//
+//    manager.register("K9TeleOp", K9TeleOp.class);
+//    manager.register ("PushBotAuto", PushBotAuto.class);
+//    manager.register ("PushBotManual", PushBotManual.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.

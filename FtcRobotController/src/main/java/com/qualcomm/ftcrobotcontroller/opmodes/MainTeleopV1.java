@@ -46,7 +46,7 @@ public class MainTeleopV1 extends OpMode {
 
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
-        right = (float) scaleInput(right);
+        right = (float) -scaleInput(right);
         left = (float) scaleInput(left);
 
         motorRF.setPower(right);
