@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class MainTeleopV1 extends OpMode {
 
+    //defines motors, RF means Right front, LR means Left Rear, etc.
     private DcMotor motorRF;
     private DcMotor motorRR;
     private DcMotor motorLF;
@@ -19,6 +20,7 @@ public class MainTeleopV1 extends OpMode {
     private float left;
     private float right;
 
+    //this initializes everything to zero, so when controller input is recieved it changes the value.
     public MainTeleopV1() {
         throttle = 0;
         direction = 0;
