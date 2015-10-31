@@ -20,7 +20,6 @@ public class MainTeleopV1 extends OpMode {
     private float left;
     private float right;
 
-    //this initializes everything to zero, so when controller input is recieved it changes the value.
     public MainTeleopV1() {
         throttle = 0;
         direction = 0;
