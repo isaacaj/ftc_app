@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -14,7 +15,7 @@ public class MainTeleopV2 extends OpMode {
     private DcMotor motorRR;
     private DcMotor motorLF;
     private DcMotor motorLR;
-    private DcMotor motorClimb;
+    private DcMotorController climbController;
 
     private float throttle;
     private float direction;
@@ -34,7 +35,11 @@ public class MainTeleopV2 extends OpMode {
         motorRR = hardwareMap.dcMotor.get("motorRR");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
-        motorClimb = hardwareMap.dcMotor.get("motorClimb");
+
+        climbController = hardwareMap.dcMotorController.get("climb");
+        climbController.setMotorChannelMode(0, DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        climbController.setMotorControllerDeviceMode(DcMotorController.DeviceMode.WRITE_ONLY);
+
     }
 
     @Override
@@ -56,7 +61,7 @@ public class MainTeleopV2 extends OpMode {
         motorRR.setPower(right);
         motorLF.setPower(left);
         motorLR.setPower(left);
-        motorClimb.setPower(1.0);
+        climbController.setMotorPower(1, 0);
     }
 
     /*
