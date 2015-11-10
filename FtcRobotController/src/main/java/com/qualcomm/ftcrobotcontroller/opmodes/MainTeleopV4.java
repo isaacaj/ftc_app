@@ -58,7 +58,7 @@ public class MainTeleopV4 extends OpMode {
 
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
-        right = (float) -scaleInput(right);
+        right = (float) scaleInput(right);
         left = (float) scaleInput(left);
 
         //sets motors to do what gathered input is
@@ -72,28 +72,23 @@ public class MainTeleopV4 extends OpMode {
 
         if (gamepad2.left_trigger > 0) {
             arm1.setPower(0.5);
-        } else {
-            arm1.setPower(0);
-        }
-
-        if (gamepad2.right_trigger > 0) {
-            arm2.setPower(0.5);
-        } else {
-            arm2.setPower(0);
-        }
-
-        if (gamepad2.left_bumper = true) {
+        } else if (gamepad2.left_bumper = true) {
             arm1.setPower(-0.5);
         } else {
             arm1.setPower(0);
         }
+        ;
 
-        if (gamepad2.right_bumper = true) {
+        if (gamepad2.right_trigger > 0) {
+            arm2.setPower(0.5);
+        } else if (gamepad2.right_bumper = true) {
             arm2.setPower(-0.5);
         } else {
             arm2.setPower(0);
         }
+        ;
     }
+
 
     /*
      * This method scales the joystick input so for low joystick values, the
@@ -128,5 +123,7 @@ public class MainTeleopV4 extends OpMode {
         // return scaled value.
         return dScale;
     }
-
 }
+
+
+   // private void scaleInput()
