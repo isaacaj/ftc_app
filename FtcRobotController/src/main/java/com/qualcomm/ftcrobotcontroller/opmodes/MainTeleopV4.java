@@ -40,8 +40,8 @@ public class MainTeleopV4 extends OpMode {
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
         motorClimb = hardwareMap.dcMotor.get("motorClimb");
-        arm1 = hardwareMap.dcMotor.get("armOne");
-        arm2 = hardwareMap.dcMotor.get("armTwo");
+        arm1 = hardwareMap.dcMotor.get("arm1");
+        arm2 = hardwareMap.dcMotor.get("arm2");
     }
 
     @Override
@@ -67,17 +67,16 @@ public class MainTeleopV4 extends OpMode {
         motorLF.setPower(left);
         motorLR.setPower(left);
         motorClimb.setPower(-0.4);
-        arm1.setPower(0);
-        arm2.setPower(0);
+        arm1.setPower(0.1);
+        arm2.setPower(-0.1);
 
-        if (gamepad2.left_trigger > 0) {
+ /*       if (gamepad2.left_trigger > 0) {
             arm1.setPower(0.5);
         } else if (gamepad2.left_bumper = true) {
             arm1.setPower(-0.5);
         } else {
             arm1.setPower(0);
         }
-        ;
 
         if (gamepad2.right_trigger > 0) {
             arm2.setPower(0.5);
@@ -86,9 +85,8 @@ public class MainTeleopV4 extends OpMode {
         } else {
             arm2.setPower(0);
         }
-        ;
+*/
     }
-
 
     /*
      * This method scales the joystick input so for low joystick values, the
