@@ -55,8 +55,8 @@ public class MainTeleopV4 extends OpMode {
         reverse = gamepad2.right_bumper;
 
         //each time loop goes through, scans gamepads and assigns the values to their variables
-        throttle = gamepad1.left_stick_y;
-        direction = gamepad1.left_stick_x;
+        throttle = gamepad1.left_stick_y * -1;
+        direction = gamepad1.left_stick_x * -1;
         right = throttle - direction;
         left = throttle + direction;
 
@@ -70,8 +70,8 @@ public class MainTeleopV4 extends OpMode {
         left = (float) scaleInput(left);
 
         //sets motors to do what gathered input is
-        motorRF.setPower(right);
-        motorRR.setPower(right);
+        motorRF.setPower(-right);
+        motorRR.setPower(-right);
         motorLF.setPower(left);
         motorLR.setPower(left);
         motorClimb.setPower(-0.4);
