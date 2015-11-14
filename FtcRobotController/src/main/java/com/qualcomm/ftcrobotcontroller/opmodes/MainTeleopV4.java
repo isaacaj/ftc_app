@@ -78,9 +78,9 @@ public class MainTeleopV4 extends OpMode {
 
         if (buttonB){
             if(reverse){
-                arm1.setPower(-1);
+                arm1.setPower(-0.5);
             } else {
-                arm1.setPower(1);
+                arm1.setPower(0.5);
             }
         } else {
             arm1.setPower(0);
@@ -88,9 +88,9 @@ public class MainTeleopV4 extends OpMode {
 
         if (buttonY){
             if(reverse){
-                arm2.setPower(-1);
+                arm2.setPower(-0.5);
             } else {
-                arm2.setPower(1);
+                arm2.setPower(0.5);
             }
         } else {
             arm2.setPower(0);
