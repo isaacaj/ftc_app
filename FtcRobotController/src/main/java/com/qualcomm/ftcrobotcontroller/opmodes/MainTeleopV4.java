@@ -24,6 +24,10 @@ public class MainTeleopV4 extends OpMode {
     private float left;
     private float right;
 
+    boolean buttonB = false;
+    boolean buttonY = false;
+    boolean reverse = false;
+
     //initiates variables so they equal zero or false, so when we start nothing conflicts
     public MainTeleopV4() {
         throttle = 0;
@@ -46,6 +50,10 @@ public class MainTeleopV4 extends OpMode {
 
     @Override
     public void loop() {
+        buttonB = gamepad2.b;
+        buttonY = gamepad2.y;
+        reverse = gamepad2.right_bumper;
+
         //each time loop goes through, scans gamepads and assigns the values to their variables
         throttle = gamepad1.left_stick_y;
         direction = gamepad1.left_stick_x;
@@ -67,25 +75,26 @@ public class MainTeleopV4 extends OpMode {
         motorLF.setPower(left);
         motorLR.setPower(left);
         motorClimb.setPower(-0.4);
-        arm1.setPower(0.1);
-        arm2.setPower(-0.1);
 
- /*       if (gamepad2.left_trigger > 0) {
-            arm1.setPower(0.5);
-        } else if (gamepad2.left_bumper = true) {
-            arm1.setPower(-0.5);
+        if (buttonB){
+            if(reverse){
+                arm1.setPower(-1);
+            } else {
+                arm1.setPower(1);
+            }
         } else {
             arm1.setPower(0);
         }
 
-        if (gamepad2.right_trigger > 0) {
-            arm2.setPower(0.5);
-        } else if (gamepad2.right_bumper = true) {
-            arm2.setPower(-0.5);
+        if (buttonY){
+            if(reverse){
+                arm2.setPower(-1);
+            } else {
+                arm2.setPower(1);
+            }
         } else {
             arm2.setPower(0);
         }
-*/
     }
 
     /*
