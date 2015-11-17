@@ -50,6 +50,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("AutonomousTest", AutonomousTest.class);
       manager.register("TeleopV2", MainTeleopV2.class);
       manager.register("TeleopV3", MainTeleopV3.class);
+      manager.register("TeleovV5", MainTeleopV5.class);
 
 
     /*
