@@ -8,18 +8,14 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by cms_guest on 11/03/15.
  */
-public class MainTeleopV5 extends OpMode {
+public class MainTeleopV6 extends OpMode {
 
     //defines motors, RF means Right front, LR means Left Rear, etc.
     private DcMotor motorRF;
     private DcMotor motorRR;
     private DcMotor motorLF;
     private DcMotor motorLR;
-    //private DcMotor motorClimb;
-    private DcMotor arm1;
-    private DcMotor arm2;
-    private Servo stickLeft;
-    private Servo stickRight;
+    private Servo brake;
 
     //defines what what throttle, direction, left, right, etc. are (booleans, floats, etc.)
     private float throttle;
@@ -29,12 +25,9 @@ public class MainTeleopV5 extends OpMode {
 
     boolean buttonB = false;
     boolean buttonY = false;
-    boolean reverse = false;
-    boolean buttonX = false;
-    boolean buttonA = false;
 
     //initiates variables so they equal zero or false, so when we start nothing conflicts
-    public MainTeleopV5() {
+    public MainTeleopV6() {
         throttle = 0;
         direction = 0;
         left = 0;
@@ -48,24 +41,22 @@ public class MainTeleopV5 extends OpMode {
         motorRR = hardwareMap.dcMotor.get("motorRR");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
-        //motorClimb = hardwareMap.dcMotor.get("motorClimb");
-        arm1 = hardwareMap.dcMotor.get("arm1");
-        arm2 = hardwareMap.dcMotor.get("arm2");
-        stickLeft = hardwareMap.servo.get("stickLeft");
-        stickRight = hardwareMap.servo.get("stickRight");
+        brake = hardwareMap.servo.get("brake");
+
+        brake.setPosition(0);
+
     }
 
     @Override
     public void loop() {
         buttonB = gamepad2.b;
         buttonY = gamepad2.y;
-        reverse = gamepad2.right_bumper;
-        buttonA = gamepad2.a;
-        buttonX = gamepad2.x;
 
         //each time loop goes through, scans gamepads and assigns the values to their variables
-        right = gamepad1.right_stick_y;
-        left = gamepad1.left_stick_y;
+        throttle = gamepad1.left_stick_y;
+        direction = gamepad1.left_stick_x;
+        right = throttle + direction;
+        left = throttle - direction;
 
         //takes the input and converts so it doesnt go over 1 or under -1
         right = Range.clip(right, -1, 1);
@@ -81,36 +72,15 @@ public class MainTeleopV5 extends OpMode {
         motorRR.setPower(-right);
         motorLF.setPower(left);
         motorLR.setPower(left);
-        //motorClimb.setPower(-0.4);
 
         if (buttonB){
-            if(reverse){
-                arm1.setPower(-0.75);
-            } else {
-                arm1.setPower(0.75);
-            }
-        } else {
-            arm1.setPower(0);
+            brake.setPosition(1);
+        } else if (buttonY){
+            brake.setPosition(0);
         }
 
-        if (buttonY){
-            if(reverse){
-                arm2.setPower(-0.25);
-            } else {
-                arm2.setPower(0.25);
-            }
-        } else {
-            arm2.setPower(0);
-        }
 
-        if (buttonX) {
-            stickLeft.setPosition(1);
-            stickRight.setPosition(1);
-        }
-        if (buttonA) {
-            stickRight.setPosition(0);
-            stickLeft.setPosition(0);
-        }
+
     }
 
     /*

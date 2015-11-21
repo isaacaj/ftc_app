@@ -50,7 +50,9 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("AutonomousTest", AutonomousTest.class);
       manager.register("TeleopV2", MainTeleopV2.class);
       manager.register("TeleopV3", MainTeleopV3.class);
-      manager.register("TeleovV5", MainTeleopV5.class);
+      manager.register("TeleopV5", MainTeleopV5.class);
+      manager.register("TeleopV6", MainTeleopV6.class);
+
 
 
     /*
@@ -81,25 +83,25 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
     //manager.register("NxtTeleOp", NxtTeleOp.class);
-    
+
     //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
     //manager.register("LinearIrExample", LinearIrExample.class);
 
-    
+
     //manager.register ("PushBotManual1", PushBotManual1.class);
     //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
     //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
-    
+
     //manager.register ("PushBotManualSensors", PushBotManualSensors.class);
     //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
     //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
-    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);    
-    
+    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
+
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.class);
     //manager.register("PushBotIrSeek", PushBotIrSeek.class);
     //manager.register("PushBotSquare", PushBotSquare.class);
 
-    
-    
+
+
   }
 }
