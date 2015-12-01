@@ -105,8 +105,13 @@ public class MainTeleopV7 extends OpMode {
         }
 
        if (buttonA){
-           collectingServo.servo
+           collectingServo.setPosition(1);
+       } else if (buttonB){
+           collectingServo.setPosition(-1);
        }
+
+
+        
 
 
     }
