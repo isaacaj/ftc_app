@@ -18,7 +18,7 @@ public class MainTeleopV7 extends OpMode {
     private DcMotor arm1;
     private DcMotor arm2;
     private Servo brake;
-    private Servo collectingServo
+    private Servo collectingServo;
 
     //defines what what throttle, direction, left, right, etc. are (booleans, floats, etc.)
     private float throttle;
@@ -51,7 +51,7 @@ public class MainTeleopV7 extends OpMode {
         arm1 = hardwareMap.dcMotor.get("arm1");
         arm2 = hardwareMap.dcMotor.get("arm2");
         brake = hardwareMap.servo.get("brake");
-        collectingServo = hardwareMap.servo.get("collectingServo")
+        collectingServo = hardwareMap.servo.get("collectingServo");
 
         brake.setPosition(0);
         collectingServo.setPosition(0);
@@ -86,7 +86,7 @@ public class MainTeleopV7 extends OpMode {
         // the robot more precisely at slower speeds.
         right = (float) scaleInput(right);
         left = (float) scaleInput(left);
-        rStick = (float) scaleInput(rStick)
+        rStick = (float) scaleInput(rStick);
         lStick = (float) scaleInput(lStick);
 
         //sets motors to do what gathered input is
