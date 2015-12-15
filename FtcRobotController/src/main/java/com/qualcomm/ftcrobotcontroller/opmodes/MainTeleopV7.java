@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -25,14 +26,16 @@ public class MainTeleopV7 extends OpMode {
     private float direction;
     private float left;
     private float right;
-    private float rStick;
-    private float lStick;
+    private boolean liftF = false;
+    private boolean liftR = false;
 
+    private boolean scoopF = false;
+    private boolean scoopR = false;
+    private boolean buttonB = false;
+    private boolean buttonY = false;
+    private boolean buttonX = false;
+    private boolean buttonA = false;
 
-    boolean buttonB = false;
-    boolean buttonY = false;
-    boolean buttonX = false;
-    boolean buttonA = false;
     //initiates variables so they equal zero or false, so when we start nothing conflicts
     public MainTeleopV7() {
         throttle = 0;
@@ -53,22 +56,28 @@ public class MainTeleopV7 extends OpMode {
         brake = hardwareMap.servo.get("brake");
         collectingServo = hardwareMap.servo.get("collectingServo");
 
-        brake.setPosition(0);
-        collectingServo.setPosition(0);
+        brake.setPosition(1);
+        collectingServo.close();
 
+        arm1.setPower(0);
+        arm2.setPower(0);
     }
 
     @Override
     public void loop() {
         //servo
-        buttonB = gamepad2.b;
-        buttonY = gamepad2.y;
-        buttonA = gamepad2.a;
-        buttonX = gamepad2.x;
+        buttonB = gamepad1.b;
+        buttonY = gamepad1.y;
+
 
         //arm
-        rStick = gamepad2.right_stick_x;
-        lStick = gamepad2.left_stick_x;
+        liftF = gamepad2.y;
+        liftR = gamepad2.b;
+        scoopF = gamepad2.a;
+        scoopR = gamepad2.x;
+
+
+        //telemetry.addData("GP2 - RAW", String.format("Left: %.2f - Right: %.2f", lTrigger, rTrigger));
 
         //each time loop goes through, scans gamepads and assigns the values to their variables
         throttle = gamepad1.left_stick_y;
@@ -79,41 +88,81 @@ public class MainTeleopV7 extends OpMode {
         //takes the input and converts so it doesnt go over 1 or under -1
         right = Range.clip(right, -1, 1);
         left = Range.clip(left, -1, 1);
-        rStick = Range.clip(rStick, -1, 1);
-        lStick = Range.clip(lStick, -1, 1);
+       // rTrigger = Range.clip(rTrigger, 0, 1);
+       // lTrigger = Range.clip(lTrigger, 0, 1);
+
+        //telemetry.addData("GP2 - Clipped", String.format("Left: %.2f - Right: %.2f", lTrigger, rTrigger));
 
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
         right = (float) scaleInput(right);
         left = (float) scaleInput(left);
-        rStick = (float) scaleInput(rStick);
-        lStick = (float) scaleInput(lStick);
+       // rTrigger = (float) scaleInput(rTrigger);
+       // lTrigger = (float) scaleInput(lTrigger);
+
+        //telemetry.addData("GP2 - Scaled", String.format("Left: %.2f - Right: %.2f", lTrigger, rTrigger));
 
         //sets motors to do what gathered input is
         motorRF.setPower(-right);
         motorRR.setPower(-right);
         motorLF.setPower(left);
         motorLR.setPower(left);
-        arm1.setPower(-rStick);
-        arm2.setPower(lStick);
+       // arm1.setPower(rTrigger);
+       // arm2.setPower(lTrigger);
 
 
-        if (buttonB){
+        if (buttonY) {
             brake.setPosition(1);
-        } else if (buttonY){
-            brake.setPosition(0);
+        } else if (buttonB) {
+            brake.setPosition(0.2);
+        }
+       // public Servo(ServoController controller, int portNumber, Servo.Direction direction) {
+           // this.controller = null;
+            //this.portNumber = -1;
+            //this.direction = Servo.Direction.FORWARD;
+           // this.minPosition = 0.0D;
+            //this.maxPosition = 1.0D;
+            //this.direction = direction;
+            //this.controller = controller;
+            //this.portNumber = portNumber;
+       // }
+        if (buttonA) {
+            collectingServo.setPosition(1);
+        } else if (buttonX) {
+            collectingServo.setPosition(0);
         }
 
-       if (buttonA){
-           collectingServo.setPosition(1);
-       } else if (buttonX){
-           collectingServo.setPosition(-1);
-       }
 
 
+        if (liftF) {
+            arm2.setPower(0.3);
+        } else if (liftR) {
+            arm2.setPower(-0.3);
+        } else {
+            arm2.setPower(0);
+        }
 
+        if (scoopF) {
+            arm1.setPower(0.3);
+        } else if (scoopR) {
+            arm1.setPower(-0.3);
+        } else {
+            arm1.setPower(0);
+        }
+//
+//        if (rightBumper) {
+//            arm1.setPower(rTrigger);
+//        } else {
+//            arm1.setPower(-rTrigger);
+//        }
+//
+//        if (leftBumper) {
+//            arm2.setPower(lTrigger);
+//        } else {
+//            arm2.setPower(-lTrigger);
+//        }
 
-
+        telemetry.addData("Status: ", "*** Robot Data ***");
     }
 
     /*
@@ -130,7 +179,7 @@ public class MainTeleopV7 extends OpMode {
 
         // index should be positive.
         if (index < 0) {
-            index = -index;
+            index = -index;//keep er going
         }
 
         // index cannot exceed size of array minus 1.
@@ -150,6 +199,3 @@ public class MainTeleopV7 extends OpMode {
         return dScale;
     }
 }
-
-
-// private void scaleInput()
