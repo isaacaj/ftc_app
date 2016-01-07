@@ -15,7 +15,7 @@ public class MainTeleopV6 extends OpMode {
     private DcMotor motorRR;
     private DcMotor motorLF;
     private DcMotor motorLR;
-    private Servo brake;
+    //private Servo brake;
 
     //defines what what throttle, direction, left, right, etc. are (booleans, floats, etc.)
     private float throttle;
@@ -41,9 +41,9 @@ public class MainTeleopV6 extends OpMode {
         motorRR = hardwareMap.dcMotor.get("motorRR");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
-        brake = hardwareMap.servo.get("brake");
+        //brake = hardwareMap.servo.get("brake");
 
-        brake.setPosition(0);
+        //brake.setPosition(0);
 
     }
 
@@ -73,12 +73,13 @@ public class MainTeleopV6 extends OpMode {
         motorLF.setPower(left);
         motorLR.setPower(left);
 
+        /*
         if (buttonB){
             brake.setPosition(1);
         } else if (buttonY){
             brake.setPosition(0);
         }
-
+*/
 
 
     }

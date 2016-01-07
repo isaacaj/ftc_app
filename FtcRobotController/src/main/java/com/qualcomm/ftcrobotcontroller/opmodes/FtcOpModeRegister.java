@@ -47,10 +47,12 @@ public class FtcOpModeRegister implements OpModeRegister {
    */
   public void register(OpModeManager manager) {
       manager.register("TeleopV7", MainTeleopV7.class);
-      manager.register("Autonomous1BLUE", AutonomousV1BLUE.class);
-      manager.register("Autonomous1RED", AutonomousV1RED.class);
-      manager.register("Autonomous2BLUE", AutonomousV2BLUE.class);
-      manager.register("Autonomous2RED", AutonomousV2RED.class);
+      manager.register("Auto1BLUE", AutonomousV1BLUE.class);
+      manager.register("Auto1RED", AutonomousV1RED.class);
+      manager.register("Auto2BLUE", AutonomousV2BLUE.class);
+      manager.register("Auto2RED", AutonomousV2RED.class);
+      manager.register("AutoForwards", ForwardsAutonomous.class);
+      manager.register("BotsForTotsTeleop", MainTeleopV6.class);
 
 
 

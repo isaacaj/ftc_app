@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class AutonomousV1BLUE extends OpMode {
+public class ForwardsAutonomous extends OpMode {
 
     public long startTime;
 
@@ -49,14 +49,7 @@ public class AutonomousV1BLUE extends OpMode {
     public class AutonomousProgram implements Runnable {
         @Override
         public void run() {
-            moveForward(2000, 1);             // move towards the bin
-            liftArm1(1000, 1);               //raise arm
-            moveForward(750, 1);            // move towards bin to get ready to dump
-            servoFowards(500, 1);        //dump climbers in bin
-            lowerArm1(1000, 1);           //retract arm
-            spinRight(700, 1);           //spin to be parrel to wall
-            moveForward(300, 1);        //move to the the parking zone
-
+            moveForward(7000, 1);
         }
 
         public void moveForward(long durationMillis, double speed) {
@@ -92,19 +85,20 @@ public class AutonomousV1BLUE extends OpMode {
             stopWheels();
         }
 
+
         public void lowerArm1(long durationMillis, double speed){
             arm1.setPower(-1);
             sleep(durationMillis);
             stopWheels();
         }
 
-        public void servoFowards (long durationMillis, double speed) {
+        public void open(long durationMillis, double speed) {
             collectingServo.setPosition(1);
             sleep(durationMillis);
             stopWheels();
         }
 
-        public void servoBackwards (long durationMillis, double speed){
+        public void close(long durationMillis, double speed){
             collectingServo.setPosition(-1);
             sleep(durationMillis);
             stopWheels();

@@ -23,8 +23,8 @@ public class AutonomousV1RED extends OpMode {
     private DcMotor motorLF;
     private DcMotor motorLR;
     private DcMotor arm1;
-    private DcMotor arm2;
     private Servo collectingServo;
+    private Servo catapult;
 
     public void init() {
         motorRF = hardwareMap.dcMotor.get("motorRF");
@@ -32,7 +32,6 @@ public class AutonomousV1RED extends OpMode {
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
         arm1 = hardwareMap.dcMotor.get("arm1");
-        arm2 = hardwareMap.dcMotor.get("arm2");
         collectingServo = hardwareMap.servo.get("collectingServo");
 
     }
@@ -50,13 +49,13 @@ public class AutonomousV1RED extends OpMode {
     public class AutonomousProgram implements Runnable {
         @Override
         public void run() {
-            moveForward(2000, 1);    // move towards the bin
-            liftArm1(1000, 1);      //raise arm
-            moveForward(750, 1);   // move towards bin to get ready to dump
-            open(500, 1);         //dump climbers in bin
-            lowerArm1(1000,1);   //retract arm
-            spinLeft(700, 1);   //spin to be parrel to wall
-            moveForward(300,1);//move to the the parking zone
+            moveForward(2000, 1);           // move towards the bin
+            liftArm1(1000, 1);             //raise arm
+            moveForward(750, 1);          // move towards bin to get ready to dump
+            servoForwards(500, 1);       //dump climbers in bin
+            lowerArm1(1000, 1);          //retract arm
+            spinLeft(700, 1);          //spin to be parrel to wall
+            moveForward(300, 1);       //move to the the parking zone
 
 
         }
@@ -94,31 +93,20 @@ public class AutonomousV1RED extends OpMode {
               stopWheels();
           }
 
-          private void liftarm2(long duratioMillis, double speed){
-              arm2.setPower(-1);
-              sleep(duratioMillis);
-              stopWheels();
-          }
-
           public void lowerArm1(long durationMillis, double speed){
               arm1.setPower(-1);
               sleep(durationMillis);
               stopWheels();
           }
 
-          private void lowerarm2(long durationMillis, double speed) {
-              arm2.setPower(1);
-              sleep(durationMillis);
-              stopWheels();
-          }
 
-          public void open(long durationMillis, double speed) {
+          public void servoForwards (long durationMillis, double speed) {
               collectingServo.setPosition(1);
               sleep(durationMillis);
               stopWheels();
           }
 
-          public void close(long durationMillis, double speed){
+          public void servoBackwards (long durationMillis, double speed){
               collectingServo.setPosition(-1);
               sleep(durationMillis);
               stopWheels();

@@ -17,9 +17,9 @@ public class MainTeleopV7 extends OpMode {
     private DcMotor motorLF;
     private DcMotor motorLR;
     private DcMotor arm1;
-    private DcMotor arm2;
     private Servo brake;
     private Servo collectingServo;
+    private Servo catapult;
 
     //defines what what throttle, direction, left, right, etc. are (booleans, floats, etc.)
     private float throttle;
@@ -29,8 +29,6 @@ public class MainTeleopV7 extends OpMode {
     private boolean liftF = false;
     private boolean liftR = false;
 
-    private boolean scoopF = false;
-    private boolean scoopR = false;
     private boolean buttonB = false;
     private boolean buttonY = false;
     private boolean buttonX = false;
@@ -52,7 +50,6 @@ public class MainTeleopV7 extends OpMode {
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLR = hardwareMap.dcMotor.get("motorLR");
         arm1 = hardwareMap.dcMotor.get("arm1");
-        arm2 = hardwareMap.dcMotor.get("arm2");
         brake = hardwareMap.servo.get("brake");
         collectingServo = hardwareMap.servo.get("collectingServo");
 
@@ -60,7 +57,6 @@ public class MainTeleopV7 extends OpMode {
         collectingServo.close();
 
         arm1.setPower(0);
-        arm2.setPower(0);
     }
 
     @Override
@@ -71,10 +67,9 @@ public class MainTeleopV7 extends OpMode {
 
 
         //arm
-        liftF = gamepad2.y;
-        liftR = gamepad2.b;
-        scoopF = gamepad2.a;
-        scoopR = gamepad2.x;
+        liftF = gamepad2.right_bumper;
+        liftR = gamepad2.left_bumper;
+
 
 
         //telemetry.addData("GP2 - RAW", String.format("Left: %.2f - Right: %.2f", lTrigger, rTrigger));
@@ -135,16 +130,8 @@ public class MainTeleopV7 extends OpMode {
 
 
         if (liftF) {
-            arm2.setPower(0.3);
-        } else if (liftR) {
-            arm2.setPower(-0.3);
-        } else {
-            arm2.setPower(0);
-        }
-
-        if (scoopF) {
             arm1.setPower(0.3);
-        } else if (scoopR) {
+        } else if (liftR) {
             arm1.setPower(-0.3);
         } else {
             arm1.setPower(0);
