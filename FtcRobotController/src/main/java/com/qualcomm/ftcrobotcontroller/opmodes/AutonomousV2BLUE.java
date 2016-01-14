@@ -24,6 +24,7 @@ public class AutonomousV2BLUE extends OpMode {
     private DcMotor motorLR;
     private DcMotor arm1;
     private Servo collectingServo;
+    private Servo catapult;
 
     public void init() {
         motorRF = hardwareMap.dcMotor.get("motorRF");
@@ -32,6 +33,7 @@ public class AutonomousV2BLUE extends OpMode {
         motorLR = hardwareMap.dcMotor.get("motorLR");
         arm1 = hardwareMap.dcMotor.get("arm1");
         collectingServo = hardwareMap.servo.get("collectingServo");
+        catapult = hardwareMap.servo.get("catapult");
     }
 
 
@@ -47,14 +49,20 @@ public class AutonomousV2BLUE extends OpMode {
     public class AutonomousProgram implements Runnable {
         @Override
         public void run() {
-            moveForward(3000, 1);          //drive until even to the shelter guide line
-            spinRight(510, 1);            //turn to directly face the wall
-            liftArm1(1000,1);            //left arm to correct hight
-            moveForward(800, 1);        //drive up to shelter
-            servoFowards(500, 1);     //dump climber into shelter
-            lowerArm1(1000, 1);       //retract arm if needed
-            spinRight(600, 1);       //spin right until parrell to wall
-            moveForward(400,1);     //push blocks into goal
+            moveForward(3600, 0.75);//drive until even to the shelter guide line
+            sleep(1000);
+            spinRight(450, 1);            //turn to directly face the wall
+            sleep(1000);
+            liftArm1(700,1);             //left arm to correct hight
+            sleep(1000);
+            moveForward(900, 0.75);        //drive up to shelter
+            sleep(1000);
+            catapultForward(500, 1);   //dump climber into shelter
+            sleep(1000);
+            catapultBackwards(500,1); //retract catapult
+            lowerArm1(450, 1);      //retract arm if needed
+            spinRight(600, 1);      //spin right until parrell to wall
+            moveForward(600,1);    //push blocks into goal
         }
 
         public void moveForward(long durationMillis, double speed) {
@@ -85,14 +93,14 @@ public class AutonomousV2BLUE extends OpMode {
         }
 
         public void liftArm1(long durationMillis, double speed){
-            arm1.setPower(1);
+            arm1.setPower(-1);
             sleep(durationMillis);
             stopWheels();
         }
 
 
         public void lowerArm1(long durationMillis, double speed){
-            arm1.setPower(-1);
+            arm1.setPower(1);
             sleep(durationMillis);
             stopWheels();
         }
@@ -110,6 +118,17 @@ public class AutonomousV2BLUE extends OpMode {
             stopWheels();
         }
 
+        public void catapultForward (long durationMillis, double speed) {
+            catapult.setPosition(0);
+            sleep(durationMillis);
+            stopWheels();
+        }
+
+        public void catapultBackwards (long durationMillis, double speed){
+            catapult.setPosition(1);
+            sleep(durationMillis);
+            stopWheels();
+        }
         public void spinLeft(long durationMillis, double speed) {
             motorRF.setPower(1);
             motorRR.setPower(1);
@@ -124,6 +143,7 @@ public class AutonomousV2BLUE extends OpMode {
             motorRR.setPower(0);
             motorLF.setPower(0);
             motorLR.setPower(0);
+            arm1.setPower(0);
         }
 
 

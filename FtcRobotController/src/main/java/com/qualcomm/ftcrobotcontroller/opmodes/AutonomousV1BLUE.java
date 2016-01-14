@@ -33,6 +33,7 @@ public class AutonomousV1BLUE extends OpMode {
         motorLR = hardwareMap.dcMotor.get("motorLR");
         arm1 = hardwareMap.dcMotor.get("arm1");
         collectingServo = hardwareMap.servo.get("collectingServo");
+        catapult = hardwareMap.servo.get("catapult");
 
     }
 
@@ -50,12 +51,13 @@ public class AutonomousV1BLUE extends OpMode {
         @Override
         public void run() {
             moveForward(2000, 1);             // move towards the bin
-            liftArm1(1000, 1);               //raise arm
+            liftArm1(500, 1);                //raise arm
             moveForward(750, 1);            // move towards bin to get ready to dump
-            servoFowards(500, 1);        //dump climbers in bin
-            lowerArm1(1000, 1);           //retract arm
-            spinRight(700, 1);           //spin to be parrel to wall
-            moveForward(300, 1);        //move to the the parking zone
+            catapultForward(500, 1);       //dump climbers in bin
+            catapultBackwards(500,1);     //retract catapult
+            lowerArm1(1000, 1);          //retract arm
+            spinRight(700, 1);          //spin to be parrel to wall
+            moveForward(300, 1);       //move to the the parking zone
 
         }
 
@@ -87,18 +89,18 @@ public class AutonomousV1BLUE extends OpMode {
         }
 
         public void liftArm1(long durationMillis, double seed){
-            arm1.setPower(1);
-            sleep(durationMillis);
-            stopWheels();
-        }
-
-        public void lowerArm1(long durationMillis, double speed){
             arm1.setPower(-1);
             sleep(durationMillis);
             stopWheels();
         }
 
-        public void servoFowards (long durationMillis, double speed) {
+        public void lowerArm1(long durationMillis, double speed){
+            arm1.setPower(1);
+            sleep(durationMillis);
+            stopWheels();
+        }
+
+        public void servoForward (long durationMillis, double speed) {
             collectingServo.setPosition(1);
             sleep(durationMillis);
             stopWheels();
@@ -106,6 +108,18 @@ public class AutonomousV1BLUE extends OpMode {
 
         public void servoBackwards (long durationMillis, double speed){
             collectingServo.setPosition(-1);
+            sleep(durationMillis);
+            stopWheels();
+        }
+
+        public void catapultForward (long durationMillis, double speed) {
+            catapult.setPosition(0);
+            sleep(durationMillis);
+            stopWheels();
+        }
+
+        public void catapultBackwards (long durationMillis, double speed){
+            catapult.setPosition(1);
             sleep(durationMillis);
             stopWheels();
         }

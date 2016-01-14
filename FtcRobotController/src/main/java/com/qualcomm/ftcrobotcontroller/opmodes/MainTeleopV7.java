@@ -26,9 +26,11 @@ public class MainTeleopV7 extends OpMode {
     private float direction;
     private float left;
     private float right;
+
+    private boolean toss = false;
+    private boolean retract = false;
     private boolean liftF = false;
     private boolean liftR = false;
-
     private boolean buttonB = false;
     private boolean buttonY = false;
     private boolean buttonX = false;
@@ -52,6 +54,7 @@ public class MainTeleopV7 extends OpMode {
         arm1 = hardwareMap.dcMotor.get("arm1");
         brake = hardwareMap.servo.get("brake");
         collectingServo = hardwareMap.servo.get("collectingServo");
+        catapult = hardwareMap.servo.get("catapult");
 
         brake.setPosition(1);
         collectingServo.close();
@@ -64,11 +67,15 @@ public class MainTeleopV7 extends OpMode {
         //servo
         buttonB = gamepad1.b;
         buttonY = gamepad1.y;
+        buttonA = gamepad1.a;
+        buttonX = gamepad1.x;
+        toss = gamepad2.y;
+        retract = gamepad2.a;
 
 
         //arm
-        liftF = gamepad2.right_bumper;
-        liftR = gamepad2.left_bumper;
+        liftF = gamepad2.left_bumper;
+        liftR = gamepad2.right_bumper;
 
 
 
@@ -127,6 +134,11 @@ public class MainTeleopV7 extends OpMode {
             collectingServo.setPosition(0);
         }
 
+        if (toss){
+            catapult.setPosition(0);
+        } else if (retract){
+            catapult.setPosition(1);
+        }
 
 
         if (liftF) {
