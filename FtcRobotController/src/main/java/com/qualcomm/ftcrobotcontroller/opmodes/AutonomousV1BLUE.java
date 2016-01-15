@@ -50,14 +50,20 @@ public class AutonomousV1BLUE extends OpMode {
     public class AutonomousProgram implements Runnable {
         @Override
         public void run() {
-            moveForward(2000, 1);             // move towards the bin
-            liftArm1(500, 1);                //raise arm
-            moveForward(750, 1);            // move towards bin to get ready to dump
+            slowForward(2750, .5);             // move towards the bin
+            sleep(1000);
+            liftArm1(800, 1);                 //raise arm
+            sleep(1000);
+            //slowForward(300, .5);          // move towards bin to get ready to dump
+            //sleep(1000);
             catapultForward(500, 1);       //dump climbers in bin
-            catapultBackwards(500,1);     //retract catapult
-            lowerArm1(1000, 1);          //retract arm
-            spinRight(700, 1);          //spin to be parrel to wall
-            moveForward(300, 1);       //move to the the parking zone
+            sleep(1000);
+            catapultBackwards(500,1);     //retract catapult\
+            sleep(1000);
+            //lowerArm1(500,1);           //retract arm
+            sleep(1000);
+            //spinRight(700, 1);          //spin to be parrel to wall
+            //moveForward(300, 1);       //move to the the parking zone
 
         }
 
@@ -66,6 +72,15 @@ public class AutonomousV1BLUE extends OpMode {
             motorRR.setPower(1);
             motorLF.setPower(-1);
             motorLR.setPower(-1);
+            sleep(durationMillis);
+            stopWheels();
+        }
+
+        public void slowForward(long durationMillis, double speed) {
+            motorRF.setPower(0.5);
+            motorRR.setPower(0.5);
+            motorLF.setPower(-0.5);
+            motorLR.setPower(-0.5);
             sleep(durationMillis);
             stopWheels();
         }
@@ -88,7 +103,7 @@ public class AutonomousV1BLUE extends OpMode {
             stopWheels();
         }
 
-        public void liftArm1(long durationMillis, double seed){
+        public void liftArm1(long durationMillis, double speed){
             arm1.setPower(-1);
             sleep(durationMillis);
             stopWheels();
@@ -138,6 +153,7 @@ public class AutonomousV1BLUE extends OpMode {
             motorRR.setPower(0);
             motorLF.setPower(0);
             motorLR.setPower(0);
+            arm1.setPower(0);
         }
 
 

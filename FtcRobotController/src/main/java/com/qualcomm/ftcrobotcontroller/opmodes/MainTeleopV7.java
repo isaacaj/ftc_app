@@ -58,8 +58,8 @@ public class MainTeleopV7 extends OpMode {
 
         brake.setPosition(1);
         collectingServo.close();
-
-        arm1.setPower(0);
+        catapult.setPosition(1);
+        arm1.setPower(1);
     }
 
     @Override
